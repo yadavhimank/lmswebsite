@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Menu, X, ShoppingCart } from "lucide-react";
+import Link from "next/link";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -53,7 +54,7 @@ export default function Header() {
               { name: "About Us", href: "/about" },
               { name: "Contact", href: "/contact" },
             ].map((item, index) => (
-              <a
+              <Link
                 key={item.name}
                 href={item.href}
                 className={`relative px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 hover:scale-105 transform ${
@@ -71,11 +72,11 @@ export default function Header() {
                 {item.active && (
                   <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-400 to-indigo-500 opacity-20 animate-pulse"></div>
                 )}
-              </a>
+              </Link>
             ))}
 
             {/* Cart Icon */}
-            <a
+            <Link
               href="/cart"
               className={`ml-4 p-3 rounded-full transition-all duration-300 hover:scale-110 transform hover:shadow-lg ${
                 scrolled
@@ -84,9 +85,9 @@ export default function Header() {
               }`}
             >
               <ShoppingCart size={20} />
-            </a>
+            </Link>
 
-            <a
+            <Link
               href="/auth"
               className={`ml-4 px-6 py-3 rounded-full font-medium transition-all duration-300 hover:scale-105 transform hover:shadow-lg ${
                 scrolled
@@ -95,7 +96,7 @@ export default function Header() {
               } animate-bounceIn`}
             >
               Login
-            </a>
+            </Link>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -144,7 +145,7 @@ export default function Header() {
               { name: "Contact", href: "/contact" },
               { name: "Cart", href: "/cart" },
             ].map((item, index) => (
-              <a
+              <Link
                 key={item.name}
                 href={item.href}
                 className={`px-4 py-3 rounded-xl font-medium transition-all duration-300 hover:scale-105 transform ${
@@ -156,9 +157,9 @@ export default function Header() {
                 onClick={() => setIsOpen(false)}
               >
                 {item.name}
-              </a>
+              </Link>
             ))}
-            <a
+            <Link
               href="/auth"
               className={`mt-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 hover:scale-105 transform text-center ${
                 scrolled
@@ -169,7 +170,7 @@ export default function Header() {
               onClick={() => setIsOpen(false)}
             >
               Sign up
-            </a>
+            </Link>
           </div>
         </div>
       </div>
