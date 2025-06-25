@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useState } from "react";
 
 export default function Banner3() {
@@ -119,9 +120,12 @@ export default function Banner3() {
               Can&apos;t find the answer you&apos;re looking for? Please chat
               with our friendly team.
             </p>
-            <button className="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-8 py-4 rounded-lg transition-colors duration-200 text-lg">
+            <Link
+              href={"/contact"}
+              className="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-8 py-4 rounded-lg transition-colors duration-200 text-lg"
+            >
               Get in touch
-            </button>
+            </Link>
           </div>
         </div>
       </div>

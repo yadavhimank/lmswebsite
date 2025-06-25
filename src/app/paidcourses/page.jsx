@@ -1,11 +1,19 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 
-const CourseCard = ({ course }) => {
+const CourseCard = ({ course, index }) => {
   const [isLiked, setIsLiked] = useState(false);
 
   return (
-    <div className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-gray-200">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, delay: index * 0.05 }}
+      whileHover={{ y: -4, transition: { duration: 0.2 } }}
+      className="group relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-100 hover:border-purple-200"
+    >
       {/* Course Image */}
       <div className="relative h-48 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
         <div
@@ -28,11 +36,14 @@ const CourseCard = ({ course }) => {
 
         {/* Like Button */}
         <button
-          onClick={() => setIsLiked(!isLiked)}
+          onClick={(e) => {
+            e.preventDefault();
+            setIsLiked(!isLiked);
+          }}
           className="absolute top-4 right-4 w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/30 hover:bg-white/30 transition-colors"
         >
           <svg
-            className={`w-4 h-4 ${
+            className={`w-4 h-4 transition-colors ${
               isLiked ? "text-red-400 fill-current" : "text-white"
             }`}
             fill="none"
@@ -57,122 +68,127 @@ const CourseCard = ({ course }) => {
       </div>
 
       {/* Course Content */}
-      <div className="p-6">
-        {/* Course Title */}
-        <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-gray-700 transition-colors">
-          {course.title}
-        </h3>
+      <Link href={`/courses/${course.id}`} className="block">
+        <div className="p-6">
+          {/* Course Title */}
+          <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-purple-700 transition-colors">
+            {course.title}
+          </h3>
 
-        {/* Instructor */}
-        <div className="flex items-center mb-4">
-          <div
-            className="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-semibold"
-            style={{ backgroundColor: course.instructorColor }}
-          >
-            {course.instructor.charAt(0)}
-          </div>
-          <span className="ml-2 text-gray-600 text-sm font-medium">
-            {course.instructor}
-          </span>
-        </div>
-
-        {/* Course Stats */}
-        <div className="flex items-center justify-between mb-4 text-sm">
-          <div className="flex items-center text-amber-500">
-            <svg className="w-4 h-4 mr-1 fill-current" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-            </svg>
-            <span className="font-semibold">{course.rating}</span>
-          </div>
-
-          <div className="flex items-center text-gray-500">
-            <svg
-              className="w-4 h-4 mr-1"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+          {/* Instructor */}
+          <div className="flex items-center mb-4">
+            <div
+              className="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-semibold"
+              style={{ backgroundColor: course.instructorColor }}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-            <span>{course.duration}</span>
+              {course.instructor.charAt(0)}
+            </div>
+            <span className="ml-2 text-gray-600 text-sm font-medium">
+              {course.instructor}
+            </span>
           </div>
 
-          <div className="flex items-center text-gray-500">
-            <svg
-              className="w-4 h-4 mr-1"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"
-              />
-            </svg>
-            <span>{course.students}</span>
-          </div>
-        </div>
+          {/* Course Stats */}
+          <div className="flex items-center justify-between mb-4 text-sm">
+            <div className="flex items-center text-amber-500">
+              <svg className="w-4 h-4 mr-1 fill-current" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              <span className="font-semibold">{course.rating}</span>
+            </div>
 
-        {/* Course Description */}
-        <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-          {course.description}
-        </p>
-
-        {/* Features */}
-        <div className="flex flex-wrap gap-2 mb-6">
-          {course.features.map((feature, index) => (
-            <span
-              key={index}
-              className="flex items-center text-xs text-gray-600 bg-gray-50 px-2 py-1 rounded-full"
-            >
+            <div className="flex items-center text-gray-500">
               <svg
-                className="w-3 h-3 mr-1 text-green-500"
-                fill="currentColor"
-                viewBox="0 0 20 20"
+                className="w-4 h-4 mr-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
               >
                 <path
-                  fillRule="evenodd"
-                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                  clipRule="evenodd"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
-              {feature}
-            </span>
-          ))}
-        </div>
-
-        {/* Pricing */}
-        <div className="flex items-center justify-between">
-          <div className="flex flex-col">
-            <div className="flex items-center gap-2">
-              <span className="text-2xl font-bold text-gray-900">
-                {course.price}
-              </span>
-              <span className="text-sm text-gray-500 line-through">
-                {course.originalPrice}
-              </span>
+              <span>{course.duration}</span>
             </div>
-            <div className="flex items-center gap-2 text-xs">
-              <span className="text-green-600 font-medium">
-                Save {course.discount}
-              </span>
-              <span className="text-gray-500">• EMI from {course.emi}</span>
+
+            <div className="flex items-center text-gray-500">
+              <svg
+                className="w-4 h-4 mr-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"
+                />
+              </svg>
+              <span>{course.students}</span>
             </div>
           </div>
 
-          <button className="px-6 py-3 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-semibold rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl">
-            Enroll Now
-          </button>
+          {/* Course Description */}
+          <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+            {course.description}
+          </p>
+
+          {/* Features */}
+          <div className="flex flex-wrap gap-2 mb-6">
+            {course.features.map((feature, featureIndex) => (
+              <span
+                key={featureIndex}
+                className="flex items-center text-xs text-gray-600 bg-gray-50 px-2 py-1 rounded-full hover:bg-gray-100 transition-colors"
+              >
+                <svg
+                  className="w-3 h-3 mr-1 text-green-500"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                {feature}
+              </span>
+            ))}
+          </div>
+
+          {/* Pricing */}
+          <div className="flex items-center justify-between">
+            <div className="flex flex-col">
+              <div className="flex items-center gap-2">
+                <span className="text-2xl font-bold text-gray-900">
+                  {course.price}
+                </span>
+                <span className="text-sm text-gray-500 line-through">
+                  {course.originalPrice}
+                </span>
+              </div>
+              <div className="flex items-center gap-2 text-xs">
+                <span className="text-green-600 font-medium">
+                  Save {course.discount}
+                </span>
+                <span className="text-gray-500">• EMI from {course.emi}</span>
+              </div>
+            </div>
+
+            <Link
+              href={`/paidcourses/${course.id}`}
+              className="px-6 py-3 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-semibold rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl"
+            >
+              View Details
+            </Link>
+          </div>
         </div>
-      </div>
-    </div>
+      </Link>
+    </motion.div>
   );
 };
 
@@ -193,26 +209,32 @@ const FilterSidebar = ({ filters, onFilterChange, isOpen, setIsOpen }) => {
   return (
     <>
       {/* Mobile Overlay */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
-          onClick={() => setIsOpen(false)}
-        />
-      )}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+            onClick={() => setIsOpen(false)}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          />
+        )}
+      </AnimatePresence>
 
       {/* Filter Sidebar */}
       <div
-        className={`fixed lg:relative top-0 left-0 h-full lg:h-auto w-72 lg:w-full bg-white shadow-xl lg:shadow-none z-50 lg:z-auto transform transition-transform duration-300 ease-in-out ${
+        className={`fixed lg:static top-0 left-0 h-full lg:h-auto w-80 lg:w-full bg-white shadow-xl lg:shadow-none z-50 lg:z-auto overflow-y-auto transform transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
-        } overflow-y-auto`}
+        }`}
       >
-        <div className="p-5">
+        <div className="p-6 lg:p-4">
           {/* Mobile Header */}
           <div className="flex items-center justify-between mb-6 lg:hidden">
             <h2 className="text-xl font-bold text-gray-900">Filters</h2>
             <button
               onClick={() => setIsOpen(false)}
-              className="p-2 hover:bg-gray-100 rounded-lg"
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
             >
               <svg
                 className="w-5 h-5"
@@ -244,7 +266,7 @@ const FilterSidebar = ({ filters, onFilterChange, isOpen, setIsOpen }) => {
               {categories.map((category) => (
                 <label
                   key={category}
-                  className="flex items-center cursor-pointer hover:bg-gray-50 p-2 rounded-lg"
+                  className="flex items-center cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors"
                 >
                   <input
                     type="radio"
@@ -269,7 +291,7 @@ const FilterSidebar = ({ filters, onFilterChange, isOpen, setIsOpen }) => {
               {durations.map((duration) => (
                 <label
                   key={duration}
-                  className="flex items-center cursor-pointer hover:bg-gray-50 p-2 rounded-lg"
+                  className="flex items-center cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors"
                 >
                   <input
                     type="radio"
@@ -294,7 +316,7 @@ const FilterSidebar = ({ filters, onFilterChange, isOpen, setIsOpen }) => {
               {priceRanges.map((range) => (
                 <label
                   key={range}
-                  className="flex items-center cursor-pointer hover:bg-gray-50 p-2 rounded-lg"
+                  className="flex items-center cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors"
                 >
                   <input
                     type="radio"
@@ -479,7 +501,7 @@ const PaidCoursesPage = () => {
       return false;
 
     if (filters.duration !== "All") {
-      const hours = parseInt(course.duration);
+      const hours = Number.parseInt(course.duration);
       if (filters.duration === "0-10 hours" && hours > 10) return false;
       if (filters.duration === "10-30 hours" && (hours <= 10 || hours > 30))
         return false;
@@ -487,7 +509,7 @@ const PaidCoursesPage = () => {
     }
 
     if (filters.price !== "All") {
-      const price = parseInt(course.price.replace("₹", ""));
+      const price = Number.parseInt(course.price.replace("₹", ""));
       if (filters.price === "₹0-₹100" && price > 100) return false;
       if (filters.price === "₹100-₹200" && (price <= 100 || price > 200))
         return false;
@@ -500,17 +522,17 @@ const PaidCoursesPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <div className="flex">
-        {/* Sidebar */}
-        <div className="hidden lg:block w-64 bg-white shadow-lg">
+        {/* Desktop Sidebar */}
+        <div className="hidden lg:block w-80 bg-white shadow-lg min-h-screen">
           <FilterSidebar
             filters={filters}
             onFilterChange={handleFilterChange}
-            isOpen={isFilterOpen}
+            isOpen={false}
             setIsOpen={setIsFilterOpen}
           />
         </div>
 
-        {/* Mobile Filter Sidebar - Only for mobile */}
+        {/* Mobile Filter Sidebar */}
         <div className="lg:hidden">
           <FilterSidebar
             filters={filters}
@@ -536,7 +558,7 @@ const PaidCoursesPage = () => {
             {/* Mobile Filter Button */}
             <button
               onClick={() => setIsFilterOpen(true)}
-              className="lg:hidden flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg font-medium"
+              className="lg:hidden flex items-center px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-colors shadow-lg"
             >
               <svg
                 className="w-5 h-5 mr-2"
@@ -556,30 +578,40 @@ const PaidCoursesPage = () => {
           </div>
 
           {/* Course Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
-            {filteredCourses.map((course) => (
-              <CourseCard key={course.id} course={course} />
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 gap-6 lg:gap-8">
+            <AnimatePresence mode="wait">
+              {filteredCourses.map((course, index) => (
+                <CourseCard key={course.id} course={course} index={index} />
+              ))}
+            </AnimatePresence>
           </div>
 
           {/* No Results */}
-          {filteredCourses.length === 0 && (
-            <div className="flex flex-col items-center justify-center py-16">
-              <div className="text-6xl mb-4">🔍</div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                No courses found
-              </h3>
-              <p className="text-gray-600 mb-4">
-                Try adjusting your filters to see more results
-              </p>
-              <button
-                onClick={() => handleFilterChange("clear", null)}
-                className="px-6 py-2 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition-colors"
+          <AnimatePresence>
+            {filteredCourses.length === 0 && (
+              <motion.div
+                className="flex flex-col items-center justify-center py-16"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.3 }}
               >
-                Clear All Filters
-              </button>
-            </div>
-          )}
+                <div className="text-6xl mb-4">🔍</div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  No courses found
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Try adjusting your filters to see more results
+                </p>
+                <button
+                  onClick={() => handleFilterChange("clear", null)}
+                  className="px-6 py-2 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition-colors"
+                >
+                  Clear All Filters
+                </button>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </div>
