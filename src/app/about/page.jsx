@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Page() {
   return (
-    <div className="bg-white text-gray-800">
+    <div className="bg-white text-gray-800 pt-20">
       {/* Section 1: Hero */}
       <section className="py-16 px-6 sm:px-10 lg:px-24 text-center bg-gradient-to-r from-purple-100 via-white to-purple-50">
         <h1 className="text-4xl sm:text-5xl font-bold text-purple-700 mb-4">

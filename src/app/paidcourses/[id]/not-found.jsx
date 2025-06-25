@@ -7,7 +7,7 @@ import { ArrowLeft, Search } from "lucide-react";
 export default function NotFound() {
   return (
     <motion.div
-      className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center"
+      className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center pt-20"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}

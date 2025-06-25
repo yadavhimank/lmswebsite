@@ -12,10 +12,10 @@ const CourseCard = ({ course, index }) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: index * 0.05 }}
       whileHover={{ y: -4, transition: { duration: 0.2 } }}
-      className="group relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-100 hover:border-purple-200"
+      className="group relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-100 hover:border-purple-200 "
     >
       {/* Course Image */}
-      <div className="relative h-48 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
+      <div className="relative h-48 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden ">
         <div
           className="absolute inset-0 bg-gradient-to-br opacity-90"
           style={{ background: course.gradient }}
@@ -68,7 +68,7 @@ const CourseCard = ({ course, index }) => {
       </div>
 
       {/* Course Content */}
-      <Link href={`/courses/${course.id}`} className="block">
+      <Link href={`/paidcourses/${course.id}`} className="block">
         <div className="p-6">
           {/* Course Title */}
           <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-purple-700 transition-colors">
@@ -520,7 +520,7 @@ const PaidCoursesPage = () => {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 pt-20">
       <div className="flex">
         {/* Desktop Sidebar */}
         <div className="hidden lg:block w-80 bg-white shadow-lg min-h-screen">

@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ShoppingCart } from "lucide-react";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -74,7 +74,20 @@ export default function Header() {
               </a>
             ))}
 
-            <button
+            {/* Cart Icon */}
+            <a
+              href="/cart"
+              className={`ml-4 p-3 rounded-full transition-all duration-300 hover:scale-110 transform hover:shadow-lg ${
+                scrolled
+                  ? "text-gray-700 hover:bg-purple-50 hover:text-purple-600"
+                  : "text-white/90 hover:text-white hover:bg-white/10"
+              }`}
+            >
+              <ShoppingCart size={20} />
+            </a>
+
+            <a
+              href="/auth"
               className={`ml-4 px-6 py-3 rounded-full font-medium transition-all duration-300 hover:scale-105 transform hover:shadow-lg ${
                 scrolled
                   ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:from-purple-700 hover:to-indigo-700"
@@ -82,7 +95,7 @@ export default function Header() {
               } animate-bounceIn`}
             >
               Login
-            </button>
+            </a>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -129,6 +142,7 @@ export default function Header() {
               { name: "Paid Courses", href: "/paidcourses" },
               { name: "About Us", href: "/about" },
               { name: "Contact", href: "/contact" },
+              { name: "Cart", href: "/cart" },
             ].map((item, index) => (
               <a
                 key={item.name}
@@ -144,17 +158,18 @@ export default function Header() {
                 {item.name}
               </a>
             ))}
-            <button
+            <a
+              href="/auth"
               className={`mt-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 hover:scale-105 transform text-center ${
                 scrolled
                   ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:from-purple-700 hover:to-indigo-700"
                   : "bg-white text-purple-900 hover:bg-purple-50"
               } animate-slideInLeft`}
-              style={{ animationDelay: "400ms" }}
+              style={{ animationDelay: "500ms" }}
               onClick={() => setIsOpen(false)}
             >
               Sign up
-            </button>
+            </a>
           </div>
         </div>
       </div>

@@ -45,7 +45,7 @@ export default function CourseDetailClient({ course }) {
 
   return (
     <motion.div
-      className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100"
+      className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 pt-20"
       initial="hidden"
       animate="visible"
       variants={containerVariants}
