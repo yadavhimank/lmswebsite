@@ -79,10 +79,10 @@ export default function Banner1() {
         {/* Main content */}
         <div className="text-center mb-16 max-w-4xl mx-auto">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-8 leading-tight">
-            Sell Online Courses with{" "}
-            <span className="text-gray-300">Outseta</span>
+            This is a LMS website from{" "}
+            <span className="text-gray-300">Tailwind</span>
             <br />
-            <span className="text-gray-300">and Webflow</span>
+            <span className="text-gray-300">and Next.js</span>
           </h1>
 
           <p className="text-lg sm:text-xl mb-12 max-w-2xl mx-auto leading-relaxed text-gray-300">

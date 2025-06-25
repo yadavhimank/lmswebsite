@@ -506,9 +506,11 @@ export default function CourseDetailClient({ course }) {
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                       >
-                        <Button className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-semibold py-3 text-lg">
-                          Enroll Now
-                        </Button>
+                        <Link href={`/paidcourses/${course.id}/enroll`}>
+                          <Button className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-semibold py-3 text-lg">
+                            Enroll Now
+                          </Button>
+                        </Link>
                       </motion.div>
 
                       <div className="grid grid-cols-2 gap-2">
